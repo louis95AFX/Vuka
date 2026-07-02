@@ -1,465 +1,407 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vukazizwe Cleaning Group</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Custom brand color variables mapping to design sheets */
-        :root {
-            --brand-purple: #4A148C;
-            --brand-purple-light: #7B1FA2;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vukazizwe Cleaning Group — Johannesburg</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#140E26;
+    --ink-soft:#4D455D;
+    --paper:#FAF9FC;
+    --paper-dim:#F3EEFA;
+    --purple:#511899;
+    --purple-dark:#3A0F70;
+    --accent:#9D4EDD;
+    --accent-light:#E0AAFF;
+    --line:#E2D9F3;
+  }
+  body{ background:var(--paper); color:var(--ink); }
+  .font-display{ font-family:'Fraunces', serif; font-optical-sizing:auto; }
+  .font-body{ font-family:'Inter', sans-serif; }
+  .font-mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* --- Ticket-stub punch-hole edges: the signature motif --- */
+  .ticket{ position:relative; }
+  .ticket::before, .ticket::after{
+    content:""; position:absolute; left:0; right:0; height:14px;
+    background-image: radial-gradient(circle at 10px 7px, var(--edge-bg,var(--paper)) 7px, transparent 7.5px);
+    background-size: 22px 14px; background-repeat: repeat-x;
+  }
+  .ticket::before{ top:-7px; }
+  .ticket::after{ bottom:-7px; }
+  .ticket-line{
+    border-top: 1.5px dashed var(--line);
+  }
+
+  /* --- Squeegee wipe hero graphic --- */
+  .wipe-wrap{ position:relative; overflow:hidden; }
+  .grime{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(81,24,153,0.12) 0, transparent 3%),
+      radial-gradient(circle at 65% 20%, rgba(81,24,153,0.09) 0, transparent 2.4%),
+      radial-gradient(circle at 40% 70%, rgba(81,24,153,0.10) 0, transparent 2.8%),
+      radial-gradient(circle at 80% 60%, rgba(81,24,153,0.08) 0, transparent 2%),
+      radial-gradient(circle at 10% 80%, rgba(81,24,153,0.11) 0, transparent 3%),
+      radial-gradient(circle at 55% 50%, rgba(81,24,153,0.07) 0, transparent 2%),
+      --line;
+    filter: saturate(0.6);
+  }
+  .clean{
+    position:absolute; inset:0;
+    background: linear-gradient(120deg, var(--purple) 0%, var(--purple-dark) 55%, #24054a 100%);
+    clip-path: polygon(0 0, 38% 0, 22% 100%, 0% 100%);
+    animation: wipe 6s ease-in-out infinite;
+  }
+  .clean::after{
+    content:""; position:absolute; inset:0;
+    background: repeating-linear-gradient(100deg, rgba(255,255,255,0.10) 0 2px, transparent 2px 40px);
+  }
+  .squeegee{
+    position:absolute; top:0; bottom:0; width:6px;
+    background: linear-gradient(180deg, var(--accent-light), var(--accent));
+    box-shadow: 0 0 18px rgba(157,78,221,0.7);
+    animation: wipe-handle 6s ease-in-out infinite;
+  }
+  @keyframes wipe{
+    0%{ clip-path: polygon(0 0, 8% 0, 4% 100%, 0% 100%); }
+    45%{ clip-path: polygon(0 0, 96% 0, 92% 100%, 0% 100%); }
+    55%{ clip-path: polygon(0 0, 96% 0, 92% 100%, 0% 100%); }
+    100%{ clip-path: polygon(0 0, 8% 0, 4% 100%, 0% 100%); }
+  }
+  @keyframes wipe-handle{
+    0%{ left:4%; }
+    45%{ left:92%; }
+    55%{ left:92%; }
+    100%{ left:4%; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .clean, .squeegee{ animation: none; left:60%; clip-path: polygon(0 0, 60% 0, 46% 100%, 0% 100%); }
+  }
+
+  /* Checklist tick animation in hero ticket */
+  .tick-item svg{ opacity:0; transform: scale(0.4); transform-origin:center; }
+  .tick-item.on svg{ opacity:1; transform:scale(1); transition: all .35s cubic-bezier(.2,1.4,.4,1); }
+  .tick-item.on span.label{ text-decoration: line-through; text-decoration-color: var(--purple); color: var(--ink-soft); }
+
+  .stamp{
+    font-family:'Fraunces', serif; font-weight:700; letter-spacing:0.04em;
+    border:2px solid var(--purple); color:var(--purple);
+    transform: rotate(-4deg);
+  }
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased font-sans">
+<body class="font-body antialiased">
 
-    <!-- NAVIGATION HEADER -->
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur shadow-sm transition-all">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand Identity -->
-            <div class="flex items-center space-x-3">
-                <div class="text-3xl text-[--brand-purple] flex flex-col items-center">
-                    <i class="fa-solid : opacity-90 drop-shadow fa-droplet"></i>
-                </div>
-                <div>
-                    <span class="block text-xl font-bold tracking-tight text-[--brand-purple] uppercase">Vukazizwe</span>
-                    <span class="block text-xs font-semibold tracking-widest text-slate-400 uppercase -mt-1">Cleaning Group</span>
-                </div>
-            </div>
+<!-- NAV -->
+<header class="sticky top-0 z-50 bg-[var(--paper)]/95 backdrop-blur border-b border-[var(--line)]">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <svg width="38" height="38" viewBox="0 0 40 40" fill="none">
+        <rect x="1" y="1" width="38" height="38" rx="9" fill="var(--ink)"/>
+        <path d="M20 8c4.5 6 8 10.8 8 15a8 8 0 1 1-16 0c0-4.2 3.5-9 8-15Z" fill="var(--purple)"/>
+        <path d="M14.5 24.5 18 28l7.5-8" stroke="var(--accent-light)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div class="leading-none">
+        <span class="block font-display font-bold text-xl tracking-tight text-[var(--ink)]">Vukazizwe</span>
+        <span class="block font-mono text-[10px] tracking-[0.25em] text-[var(--purple)] uppercase mt-0.5">Cleaning Group</span>
+      </div>
+    </div>
+    <nav class="hidden md:flex items-center gap-9 font-medium text-sm text-[var(--ink-soft)]">
+      <a href="#home" class="hover:text-[var(--ink)] transition">Home</a>
+      <a href="#services" class="hover:text-[var(--ink)] transition">Services</a>
+      <a href="#about" class="hover:text-[var(--ink)] transition">Why Us</a>
+      <a href="#team" class="hover:text-[var(--ink)] transition">Crew</a>
+      <a href="#contact" class="hover:text-[var(--ink)] transition">Contact</a>
+    </nav>
+    <a href="#contact" class="hidden md:inline-flex items-center gap-2 bg-[var(--ink)] text-[var(--paper)] px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-[var(--purple-dark)] transition">
+      Request a quote
+    </a>
+    <button class="md:hidden text-xl text-[var(--ink)]" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" aria-label="Toggle menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden bg-[var(--paper)] border-t border-[var(--line)] px-5 py-4 space-y-3 text-sm font-medium">
+    <a href="#home" class="block">Home</a>
+    <a href="#services" class="block">Services</a>
+    <a href="#about" class="block">Why Us</a>
+    <a href="#team" class="block">Crew</a>
+    <a href="#contact" class="block bg-[var(--ink)] text-[var(--paper)] text-center py-2.5 rounded-lg">Request a quote</a>
+  </div>
+</header>
 
-            <!-- Nav Items -->
-            <nav class="hidden md:flex items-center space-x-8 font-medium">
-                <a href="#home" class="text-[--brand-purple] hover:opacity-80 transition">Home</a>
-                <a href="#about" class="text-slate-600 hover:text-[--brand-purple] transition">About</a>
-                <a href="#services" class="text-slate-600 hover:text-[--brand-purple] transition">Services</a>
-                <a href="#contact" class="text-slate-600 hover:text-[--brand-purple] transition">Contact</a>
-            </nav>
+<!-- HERO -->
+<section id="home" class="pt-16 pb-24 lg:pt-20 lg:pb-28">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-16 items-center">
+    <div class="max-w-xl">
+      <span class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--purple)]">Johannesburg · Est. work order #001</span>
+      <h1 class="font-display font-black text-5xl sm:text-6xl leading-[1.03] tracking-tight mt-4 text-[var(--ink)]">
+        Your space,<br><span class="italic font-normal">actually</span> spotless.
+      </h1>
+      <p class="text-[var(--ink-soft)] text-lg leading-relaxed mt-6">
+        Vukazizwe cleans homes, offices, and construction handovers across Johannesburg — booked in minutes, done to a standard you can run a finger along.
+      </p>
+      <div class="flex flex-wrap gap-4 mt-8">
+        <a href="#contact" class="bg-[var(--ink)] text-[var(--paper)] px-7 py-3.5 rounded-full font-semibold text-sm hover:bg-[var(--purple-dark)] transition">Book a cleaning</a>
+        <a href="#services" class="border-2 border-[var(--ink)] text-[var(--ink)] px-7 py-3.5 rounded-full font-semibold text-sm hover:bg-[var(--ink)] hover:text-[var(--paper)] transition">See services</a>
+      </div>
+      <div class="flex gap-8 mt-10 pt-8 border-t border-[var(--line)]">
+        <div><span class="block font-display font-bold text-3xl text-[var(--ink)]">500+</span><span class="text-xs text-[var(--ink-soft)] uppercase tracking-wide">Clients served</span></div>
+        <div><span class="block font-display font-bold text-3xl text-[var(--ink)]">10 yrs</span><span class="text-xs text-[var(--ink-soft)] uppercase tracking-wide">In business</span></div>
+        <div><span class="block font-display font-bold text-3xl text-[var(--ink)]">100%</span><span class="text-xs text-[var(--ink-soft)] uppercase tracking-wide">Satisfaction</span></div>
+      </div>
+    </div>
 
-            <!-- Action Button -->
-            <div class="hidden md:block">
-                <a href="#contact" class="bg-[--brand-purple] text-white px-5 py-2.5 rounded-full font-semibold shadow-md hover:bg-[--brand-purple-light] transition">
-                    Get Started
-                </a>
-            </div>
-            
-            <!-- Mobile Toggle -->
-            <button class="md:hidden text-2xl text-slate-700" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+    <!-- Signature: job ticket with animated checklist + squeegee wipe -->
+    <div class="ticket" style="--edge-bg:var(--paper);">
+      <div class="bg-[var(--paper-dim)] rounded-2xl overflow-hidden shadow-xl border border-[var(--line)]">
+        <div class="wipe-wrap h-40">
+          <div class="grime"></div>
+          <div class="clean"></div>
+          <div class="squeegee"></div>
+          <div class="absolute bottom-3 right-4 font-mono text-[10px] tracking-widest text-white/90 bg-black/20 px-2 py-1 rounded">BEFORE → AFTER</div>
         </div>
-
-        <!-- Mobile Menu Stack -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-4 py-4 space-y-3 shadow-inner">
-            <a href="#home" class="block font-medium text-[--brand-purple]">Home</a>
-            <a href="#about" class="block font-medium text-slate-600">About</a>
-            <a href="#services" class="block font-medium text-slate-600">Services</a>
-            <a href="#contact" class="block font-medium text-slate-600">Contact</a>
-            <a href="#contact" class="block w-full text-center bg-[--brand-purple] text-white py-2 rounded-lg">Get Started</a>
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs text-[var(--ink-soft)]">JOB TICKET · #10234</span>
+            <span class="stamp text-xs px-2 py-1 rounded">CONFIRMED</span>
+          </div>
+          <ul class="space-y-3" id="tick-list">
+            <li class="tick-item flex items-center gap-3 on"><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="9" fill="var(--purple)"/><path d="M5 9.5l2.5 2.5L13 6" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="label text-sm">Dust & wipe every surface</span></li>
+            <li class="tick-item flex items-center gap-3"><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="9" fill="var(--purple)"/><path d="M5 9.5l2.5 2.5L13 6" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="label text-sm">Vacuum & steam carpets</span></li>
+            <li class="tick-item flex items-center gap-3"><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="9" fill="var(--purple)"/><path d="M5 9.5l2.5 2.5L13 6" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="label text-sm">Streak-free glass & windows</span></li>
+            <li class="tick-item flex items-center gap-3"><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="9" fill="var(--purple)"/><path d="M5 9.5l2.5 2.5L13 6" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="label text-sm">Sanitise kitchen & bathrooms</span></li>
+          </ul>
         </div>
-    </header>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- SECTION 1: HERO CONTAINER -->
-    <section id="home" class="relative overflow-hidden bg-gradient-to-br from-purple-50 via-white to-slate-50 py-16 lg:py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6 max-w-xl">
-                <div class="inline-flex items-center space-x-2 bg-purple-100 text-[--brand-purple] px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
-                    <i class="fa-solid fa-star text-[10px]"></i> <span>Professional Cleaning Services</span>
-                </div>
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
-                    Vukazizwe <br><span class="text-[--brand-purple]">Cleaning Group</span>
-                </h1>
-                <p class="text-lg text-slate-600 leading-relaxed">
-                    Trusted cleaning solutions for homes, offices, and commercial spaces delivered with care and excellence.
-                </p>
-                <div class="flex flex-wrap gap-4 pt-2">
-                    <a href="#contact" class="bg-[--brand-purple] text-white px-8 py-3.5 rounded-full font-bold shadow-lg shadow-purple-900/20 hover:bg-[--brand-purple-light] transition">
-                        Get Started
-                    </a>
-                    <a href="#about" class="border-2 border-slate-200 text-slate-700 hover:border-[--brand-purple] hover:text-[--brand-purple] px-8 py-3.5 rounded-full font-bold transition">
-                        Learn More
-                    </a>
-                </div>
+<!-- SERVICES — presented as a checklist ledger, not cards -->
+<section id="services" class="py-24 bg-[var(--ink)] text-[var(--paper)]">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="max-w-xl mb-14">
+      <span class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--accent-light)]">The service ledger</span>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl mt-3">Pick a line item, we handle the rest.</h2>
+    </div>
 
-                <!-- Stats Badges Block -->
-                <div class="grid grid-cols-2 gap-4 pt-8 border-t border-slate-200/60">
-                    <div class="flex items-center space-x-3">
-                        <span class="text-3xl font-extrabold text-[--brand-purple]">200+</span>
-                        <span class="text-sm font-medium text-slate-500 leading-tight">Happy<br>Clients</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <span class="text-3xl font-extrabold text-[--brand-purple]">30+</span>
-                        <span class="text-sm font-medium text-slate-500 leading-tight">Expert Cleaning<br>Team Members</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hero Image Block Placeholder -->
-            <div class="relative flex justify-center">
-                <div class="w-full h-[400px] rounded-2xl bg-purple-900/10 border-2 border-purple-200 overflow-hidden shadow-xl flex items-center justify-center group">
-                    <i class="fa-solid fa-sparkles text-6xl text-[--brand-purple] opacity-40 group-hover:scale-110 transition duration-500"></i>
-                    <div class="absolute bottom-4 right-4 bg-white px-4 py-2.5 rounded-xl shadow-md border border-slate-100 text-xs font-semibold flex items-center space-x-2">
-                        <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></span>
-                        <span class="text-slate-700">Certified, Trained & Dedicated Professionals</span>
-                    </div>
-                </div>
-            </div>
+    <div class="ticket-edge" style="--edge-bg:var(--ink);">
+    <div class="divide-y divide-white/10 border-y border-white/10">
+      <!-- row -->
+      <div class="grid sm:grid-cols-12 gap-4 sm:gap-6 py-6 items-center group">
+        <span class="sm:col-span-1 font-mono text-sm text-[var(--accent-light)]">001</span>
+        <div class="sm:col-span-4">
+          <h3 class="font-display font-semibold text-xl">Residential Cleaning</h3>
         </div>
-    </section>
+        <p class="sm:col-span-5 text-sm text-white/60 leading-relaxed">Weekly, fortnightly, or once-off — kitchens, bathrooms, floors and every surface in between.</p>
+        <span class="sm:col-span-2 font-mono text-xs text-white/40 sm:text-right">FROM R450</span>
+      </div>
+      <div class="grid sm:grid-cols-12 gap-4 sm:gap-6 py-6 items-center group">
+        <span class="sm:col-span-1 font-mono text-sm text-[var(--accent-light)]">002</span>
+        <div class="sm:col-span-4"><h3 class="font-display font-semibold text-xl">Commercial Cleaning</h3></div>
+        <p class="sm:col-span-5 text-sm text-white/60 leading-relaxed">After-hours or scheduled office and retail servicing that never interrupts your business day.</p>
+        <span class="sm:col-span-2 font-mono text-xs text-white/40 sm:text-right">CUSTOM QUOTE</span>
+      </div>
+      <div class="grid sm:grid-cols-12 gap-4 sm:gap-6 py-6 items-center group">
+        <span class="sm:col-span-1 font-mono text-sm text-[var(--accent-light)]">003</span>
+        <div class="sm:col-span-4"><h3 class="font-display font-semibold text-xl">Deep Cleaning</h3></div>
+        <p class="sm:col-span-5 text-sm text-white/60 leading-relaxed">Behind appliances, inside cupboards, ground-in grime — the reset your space needs once in a while.</p>
+        <span class="sm:col-span-2 font-mono text-xs text-white/40 sm:text-right">FROM R950</span>
+      </div>
+      <div class="grid sm:grid-cols-12 gap-4 sm:gap-6 py-6 items-center group">
+        <span class="sm:col-span-1 font-mono text-sm text-[var(--accent-light)]">004</span>
+        <div class="sm:col-span-4"><h3 class="font-display font-semibold text-xl">Window Cleaning</h3></div>
+        <p class="sm:col-span-5 text-sm text-white/60 leading-relaxed">Interior and exterior panes, tracks and sills — clear glass, top to bottom.</p>
+        <span class="sm:col-span-2 font-mono text-xs text-white/40 sm:text-right">FROM R380</span>
+      </div>
+      <div class="grid sm:grid-cols-12 gap-4 sm:gap-6 py-6 items-center group">
+        <span class="sm:col-span-1 font-mono text-sm text-[var(--accent-light)]">005</span>
+        <div class="sm:col-span-4"><h3 class="font-display font-semibold text-xl">Carpet & Upholstery</h3></div>
+        <p class="sm:col-span-5 text-sm text-white/60 leading-relaxed">Steam extraction that lifts stains and odours without soaking or damaging the pile.</p>
+        <span class="sm:col-span-2 font-mono text-xs text-white/40 sm:text-right">FROM R520</span>
+      </div>
+      <div class="grid sm:grid-cols-12 gap-4 sm:gap-6 py-6 items-center group">
+        <span class="sm:col-span-1 font-mono text-sm text-[var(--accent-light)]">006</span>
+        <div class="sm:col-span-4"><h3 class="font-display font-semibold text-xl">Post-Construction</h3></div>
+        <p class="sm:col-span-5 text-sm text-white/60 leading-relaxed">Fine dust, paint spatter and site debris cleared so a build is ready to hand over.</p>
+        <span class="sm:col-span-2 font-mono text-xs text-white/40 sm:text-right">CUSTOM QUOTE</span>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
 
-    <!-- SECTION 2: SERVICES MATRIX -->
-    <section id="services" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
-                <span class="text-[--brand-purple] text-sm font-bold tracking-widest uppercase">What We Do</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">We Provide the Best Cleaning</h2>
-                <p class="text-slate-500">From homes to commercial spaces, Vukazizwe Cleaning Group delivers exceptional cleaning services tailored to your exact needs.</p>
-            </div>
-
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service Cards Card Layout wrapper -->
-                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:shadow-xl hover:bg-white transition duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-purple-100 text-[--brand-purple] flex items-center justify-center text-xl font-bold mb-4"><i class="fa-solid fa-house-chimney"></i></div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Residential Cleaning</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed mb-4">Complete home sanitation tailored perfectly to keep your domestic living spaces spotless and fresh.</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-200/60 text-xs font-bold">
-                        <span class="text-amber-500"><i class="fa-solid fa-star"></i> 5.0/5 Rating</span>
-                        <a href="#contact" class="text-[--brand-purple] hover:underline">See More...</a>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:shadow-xl hover:bg-white transition duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-purple-100 text-[--brand-purple] flex items-center justify-center text-xl font-bold mb-4"><i class="fa-solid fa-building"></i></div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Commercial Cleaning</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed mb-4">Premium sanitation solutions configured explicitly for office architectures and corporate ecosystems.</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-200/60 text-xs font-bold">
-                        <span class="text-amber-500"><i class="fa-solid fa-star"></i> 4.9/5 Rating</span>
-                        <a href="#contact" class="text-[--brand-purple] hover:underline">See More...</a>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:shadow-xl hover:bg-white transition duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-purple-100 text-[--brand-purple] flex items-center justify-center text-xl font-bold mb-4"><i class="fa-solid fa-soap"></i></div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Deep Cleaning</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed mb-4">Intensive grime elimination and absolute microscopic surface detail disinfection cycles.</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-200/60 text-xs font-bold">
-                        <span class="text-amber-500"><i class="fa-solid fa-star"></i> 4.8/5 Rating</span>
-                        <a href="#contact" class="text-[--brand-purple] hover:underline">See More...</a>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:shadow-xl hover:bg-white transition duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-purple-100 text-[--brand-purple] flex items-center justify-center text-xl font-bold mb-4"><i class="fa-solid fa-border-all"></i></div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Window Cleaning</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed mb-4">Streak-free interior and exterior pane cleaning execution for crystal clear visibility profiles.</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-200/60 text-xs font-bold">
-                        <span class="text-amber-500"><i class="fa-solid fa-star"></i> 4.9/5 Rating</span>
-                        <a href="#contact" class="text-[--brand-purple] hover:underline">See More...</a>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:shadow-xl hover:bg-white transition duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-purple-100 text-[--brand-purple] flex items-center justify-center text-xl font-bold mb-4"><i class="fa-solid fa-rug"></i></div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Carpet Cleaning</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed mb-4">Steam wash extraction techniques to lift stains and refresh sensitive fabric pile structures safely.</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-200/60 text-xs font-bold">
-                        <span class="text-amber-500"><i class="fa-solid fa-star"></i> 4.7/5 Rating</span>
-                        <a href="#contact" class="text-[--brand-purple] hover:underline">See More...</a>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:shadow-xl hover:bg-white transition duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-purple-100 text-[--brand-purple] flex items-center justify-center text-xl font-bold mb-4"><i class="fa-solid fa-trowel-bricks"></i></div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Post-Construction Cleanup</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed mb-4">Complete site fine-dust extraction scrubbing cycles ready for spatial occupancy handovers.</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-200/60 text-xs font-bold">
-                        <span class="text-amber-500"><i class="fa-solid fa-star"></i> 4.8/5 Rating</span>
-                        <a href="#contact" class="text-[--brand-purple] hover:underline">See More...</a>
-                    </div>
-                </div>
-            </div>
+<!-- WHY US — inspection tags -->
+<section id="about" class="py-24">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-14 items-start">
+    <div>
+      <span class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--purple)]">Quality control</span>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl mt-3 leading-tight">Three standards<br>we never skip.</h2>
+      <p class="text-[var(--ink-soft)] mt-5 max-w-md leading-relaxed">Every job gets signed off against the same checklist, whether it's a studio apartment or a three-storey office.</p>
+    </div>
+    <div class="space-y-5">
+      <div class="ticket flex items-start gap-5 bg-[var(--paper-dim)] rounded-xl p-6 border border-[var(--line)]" style="--edge-bg:var(--paper);">
+        <span class="font-mono text-xs text-[var(--purple)] mt-1 shrink-0">TAG · 01</span>
+        <div>
+          <h4 class="font-display font-semibold text-lg">Vetted, trained crew</h4>
+          <p class="text-sm text-[var(--ink-soft)] mt-1">Every cleaner is background-checked and trained on our checklist before their first solo job.</p>
         </div>
-    </section>
-
-    <!-- SECTION 3: VALUE ACCENTS & SELLING POINTS -->
-    <section id="about" class="py-20 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Left Details Grid Column -->
-                <div class="space-y-6">
-                    <span class="text-[--brand-purple] text-sm font-bold tracking-widest uppercase">Value System</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Why Choose Vukazizwe Cleaning</h2>
-                    <p class="text-slate-600">We stand apart by enforcing deep cleaning standards backed by professional management protocols.</p>
-                    
-                    <!-- Core Selling Grid Items -->
-                    <div class="space-y-4 pt-4">
-                        <div class="flex items-start space-x-4 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                            <div class="w-10 h-10 rounded-lg bg-purple-100 text-[--brand-purple] flex items-center justify-center shrink-0 text-lg"><i class="fa-solid fa-user-tie"></i></div>
-                            <div>
-                                <h4 class="font-bold text-slate-950 text-base">1. Experienced Staff</h4>
-                                <p class="text-slate-500 text-sm mt-0.5">Our professionally trained and certified cleaning staff deliver consistent, high-quality results every time.</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-4 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                            <div class="w-10 h-10 rounded-lg bg-purple-100 text-[--brand-purple] flex items-center justify-center shrink-0 text-lg"><i class="fa-solid fa-seedling"></i></div>
-                            <div>
-                                <h4 class="font-bold text-slate-950 text-base">2. Eco-Friendly Products</h4>
-                                <p class="text-slate-500 text-sm mt-0.5">We use environmentally safe, non-toxic cleaning products that are safe for your family and the planet.</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-4 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                            <div class="w-10 h-10 rounded-lg bg-purple-100 text-[--brand-purple] flex items-center justify-center shrink-0 text-lg"><i class="fa-solid fa-calendar-days"></i></div>
-                            <div>
-                                <h4 class="font-bold text-slate-950 text-base">3. Flexible Scheduling</h4>
-                                <p class="text-slate-500 text-sm mt-0.5">We work around your schedule, offering morning, evening, and weekend cleaning appointments.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Visual Context Feature Box -->
-                <div class="bg-gradient-to-br from-[--brand-purple] to-purple-950 text-white rounded-3xl p-8 lg:p-12 shadow-xl relative overflow-hidden flex flex-col justify-between min-h-[420px]">
-                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/5 rounded-full blur-2xl"></div>
-                    <div class="space-y-4">
-                        <h3 class="text-2xl lg:text-3xl font-extrabold tracking-tight leading-snug">Need tailored structural cleaning configurations immediately?</h3>
-                        <p class="text-purple-200 text-sm leading-relaxed max-w-sm">Connect with our processing office right now to secure optimized packages and timelines.</p>
-                    </div>
-                    <div class="pt-8">
-                        <a href="#contact" class="inline-flex items-center space-x-3 bg-white text-[--brand-purple] font-bold px-6 py-3.5 rounded-full hover:bg-purple-50 transition shadow-lg">
-                            <span>Get Your Free Quote</span>
-                            <i class="fa-solid fa-arrow-right text-xs"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="ticket flex items-start gap-5 bg-[var(--paper-dim)] rounded-xl p-6 border border-[var(--line)]" style="--edge-bg:var(--paper);">
+        <span class="font-mono text-xs text-[var(--purple)] mt-1 shrink-0">TAG · 02</span>
+        <div>
+          <h4 class="font-display font-semibold text-lg">Products that don't linger</h4>
+          <p class="text-sm text-[var(--ink-soft)] mt-1">Non-toxic, biodegradable formulas — safe for kids, pets, and whoever's allergic to the wrong thing.</p>
         </div>
-    </section>
-
-    <!-- SECTION 4: THE OPERATIONAL STEP PROCESS -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-xl mx-auto mb-16 space-y-3">
-                <span class="text-[--brand-purple] text-sm font-bold tracking-widest uppercase">Execution Layer</span>
-                <h2 class="text-3xl font-extrabold text-slate-900">Our Cleaning Process</h2>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8 relative">
-                <!-- Step block elements -->
-                <div class="space-y-4 relative z-10 bg-slate-50 p-6 rounded-2xl border border-slate-100">
-                    <span class="text-4xl font-black text-purple-200 block">01</span>
-                    <h3 class="text-lg font-bold text-slate-900">Book Your Appointment</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Schedule a cleaning session at your convenience. Choose your preferred date, time, and type of cleaning service that suits your needs.</p>
-                </div>
-
-                <div class="space-y-4 relative z-10 bg-slate-50 p-6 rounded-2xl border border-slate-100">
-                    <span class="text-4xl font-black text-purple-200 block">02</span>
-                    <h3 class="text-lg font-bold text-slate-900">We Clean Your Space</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Our professional cleaning team arrives fully equipped and ready to deliver a thorough, high-quality clean of your home or office.</p>
-                </div>
-
-                <div class="space-y-4 relative z-10 bg-slate-50 p-6 rounded-2xl border border-slate-100">
-                    <span class="text-4xl font-black text-purple-200 block">03</span>
-                    <h3 class="text-lg font-bold text-slate-900">Enjoy a Spotless Environment</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Sit back and relax in your freshly cleaned space. We ensure every corner is spotless so you can enjoy a healthier, cleaner environment.</p>
-                </div>
-            </div>
+      </div>
+      <div class="ticket flex items-start gap-5 bg-[var(--paper-dim)] rounded-xl p-6 border border-[var(--line)]" style="--edge-bg:var(--paper);">
+        <span class="font-mono text-xs text-[var(--purple)] mt-1 shrink-0">TAG · 03</span>
+        <div>
+          <h4 class="font-display font-semibold text-lg">Booked around you</h4>
+          <p class="text-sm text-[var(--ink-soft)] mt-1">Mornings, evenings, weekends — we fit the slot you have, not the other way round.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- SECTION 5: PERFORMANCE PROOF MATRIX -->
-    <section class="py-16 bg-[--brand-purple] text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8 items-center">
-            <div class="space-y-2 md:col-span-1">
-                <span class="text-purple-300 text-xs font-bold uppercase tracking-widest block">Metrics Summary</span>
-                <h2 class="text-3xl font-black tracking-tight">Our Proven<br>Track Record</h2>
-                <div class="w-12 h-1 bg-white/20 rounded mt-4"></div>
-            </div>
-            
-            <div class="md:col-span-2 grid sm:grid-cols-3 gap-6">
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center backdrop-blur">
-                    <span class="block text-4xl font-extrabold text-white mb-1">500+</span>
-                    <span class="text-xs font-semibold text-purple-200 tracking-wider uppercase">Happy Clients</span>
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center backdrop-blur">
-                    <span class="block text-4xl font-extrabold text-white mb-1">10+</span>
-                    <span class="text-xs font-semibold text-purple-200 tracking-wider uppercase">Years Experience</span>
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center backdrop-blur">
-                    <span class="block text-4xl font-extrabold text-white mb-1">100%</span>
-                    <span class="text-xs font-semibold text-purple-200 tracking-wider uppercase">Satisfaction Rate</span>
-                </div>
-            </div>
+<!-- PROCESS -->
+<section class="py-24 bg-[var(--paper-dim)] border-y border-[var(--line)]">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-lg mx-auto mb-16">
+      <span class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--purple)]">How a job runs</span>
+      <h2 class="font-display font-bold text-4xl mt-3">Three steps, start to finish.</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8 relative">
+      <div class="absolute top-8 left-[16.5%] right-[16.5%] hidden md:block border-t-2 border-dashed border-[var(--line)]"></div>
+      <div class="relative text-center">
+        <div class="w-14 h-14 rounded-full bg-[var(--ink)] text-[var(--accent-light)] font-mono font-bold flex items-center justify-center mx-auto relative z-10">01</div>
+        <h3 class="font-display font-semibold text-lg mt-5">Book your slot</h3>
+        <p class="text-sm text-[var(--ink-soft)] mt-2 max-w-xs mx-auto">Pick a date, time and service — takes under two minutes online or by phone.</p>
+      </div>
+      <div class="relative text-center">
+        <div class="w-14 h-14 rounded-full bg-[var(--ink)] text-[var(--accent-light)] font-mono font-bold flex items-center justify-center mx-auto relative z-10">02</div>
+        <h3 class="font-display font-semibold text-lg mt-5">Crew arrives & cleans</h3>
+        <p class="text-sm text-[var(--ink-soft)] mt-2 max-w-xs mx-auto">Fully equipped, working through the same checklist every time — no shortcuts.</p>
+      </div>
+      <div class="relative text-center">
+        <div class="w-14 h-14 rounded-full bg-[var(--ink)] text-[var(--accent-light)] font-mono font-bold flex items-center justify-center mx-auto relative z-10">03</div>
+        <h3 class="font-display font-semibold text-lg mt-5">You sign off</h3>
+        <p class="text-sm text-[var(--ink-soft)] mt-2 max-w-xs mx-auto">Walk the space with us. Anything not right, we fix before we leave.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="py-24">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-3 gap-12 items-start">
+    <div class="lg:col-span-1">
+      <span class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--purple)]">The crew</span>
+      <h2 class="font-display font-bold text-4xl mt-3 leading-tight">Meet who shows up.</h2>
+      <p class="text-sm text-[var(--ink-soft)] mt-4 leading-relaxed">Every job is staffed by trained regulars, not rotating strangers — so the same standard shows up every visit.</p>
+    </div>
+    <div class="lg:col-span-2 grid sm:grid-cols-2 gap-5">
+      <div class="ticket flex items-center gap-4 p-5 bg-[var(--paper-dim)] rounded-xl border border-[var(--line)]" style="--edge-bg:var(--paper);">
+        <div class="w-14 h-14 rounded-full bg-[var(--purple)] text-white font-display font-bold flex items-center justify-center text-lg shrink-0">TN</div>
+        <div><h4 class="font-display font-semibold">Thabo Nkosi</h4><span class="font-mono text-xs text-[var(--ink-soft)]">Senior Cleaner</span></div>
+      </div>
+      <div class="ticket flex items-center gap-4 p-5 bg-[var(--paper-dim)] rounded-xl border border-[var(--line)]" style="--edge-bg:var(--paper);">
+        <div class="w-14 h-14 rounded-full bg-[var(--purple)] text-white font-display font-bold flex items-center justify-center text-lg shrink-0">LD</div>
+        <div><h4 class="font-display font-semibold">Lindiwe Dube</h4><span class="font-mono text-xs text-[var(--ink-soft)]">Team Supervisor</span></div>
+      </div>
+      <div class="ticket flex items-center gap-4 p-5 bg-[var(--paper-dim)] rounded-xl border border-[var(--line)]" style="--edge-bg:var(--paper);">
+        <div class="w-14 h-14 rounded-full bg-[var(--purple)] text-white font-display font-bold flex items-center justify-center text-lg shrink-0">SM</div>
+        <div><h4 class="font-display font-semibold">Sipho Mokoena</h4><span class="font-mono text-xs text-[var(--ink-soft)]">Floor Specialist</span></div>
+      </div>
+      <div class="ticket flex items-center gap-4 p-5 bg-[var(--paper-dim)] rounded-xl border border-[var(--line)]" style="--edge-bg:var(--paper);">
+        <div class="w-14 h-14 rounded-full bg-[var(--purple)] text-white font-display font-bold flex items-center justify-center text-lg shrink-0">ZK</div>
+        <div><h4 class="font-display font-semibold">Zanele Khumalo</h4><span class="font-mono text-xs text-[var(--ink-soft)]">Sanitation Expert</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT — intake form styled like a work order -->
+<section id="contact" class="py-24 bg-[var(--ink)] text-[var(--paper)]">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-5 gap-12">
+    <div class="lg:col-span-2 space-y-6">
+      <span class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--accent-light)]">Open a work order</span>
+      <h2 class="font-display font-bold text-4xl leading-tight">Tell us what needs cleaning.</h2>
+      <p class="text-white/60 text-sm leading-relaxed">We'll get back to you with a quote within one business day.</p>
+      <div class="space-y-4 pt-4">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center"><i class="fa-solid fa-phone text-[var(--accent-light)]"></i></div>
+          <div><span class="block text-[10px] uppercase tracking-wider text-white/40">Phone</span><span class="text-sm font-medium">+27 11 000 1234 · +27 82 000 5678</span></div>
         </div>
-    </section>
-
-    <!-- SECTION 6: MANAGEMENT & TEAM DIRECTORY -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-12 items-center">
-            <div class="space-y-4 max-w-md">
-                <span class="text-[--brand-purple] text-sm font-bold tracking-widest uppercase">The Professionals</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">Meet Our Cleaning Team</h2>
-                <p class="text-slate-500 text-sm leading-relaxed">
-                    Our dedicated professionals bring skill, care, and commitment to every cleaning job, ensuring your space is spotless and fresh. Each team member is trained to the highest standards, delivering reliable and thorough cleaning services every time.
-                </p>
-                <div class="pt-2">
-                    <a href="#contact" class="text-[--brand-purple] font-bold text-sm inline-flex items-center space-x-2 group">
-                        <span>View All Members</span> <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition text-xs"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Team Roster Profile Stack Column Wrapper -->
-            <div class="lg:col-span-2 grid sm:grid-cols-2 gap-6">
-                <!-- Profiles -->
-                <div class="flex items-center space-x-4 p-4 border border-slate-100 rounded-xl bg-slate-50">
-                    <div class="w-14 h-14 rounded-full bg-purple-200 border border-purple-300 flex items-center justify-center text-purple-700 font-bold shrink-0 text-lg"><i class="fa-solid fa-user-ninja"></i></div>
-                    <div>
-                        <h4 class="font-bold text-slate-900">Thabo Nkosi</h4>
-                        <span class="text-xs font-semibold text-purple-600">Senior Cleaner</span>
-                    </div>
-                </div>
-
-                <div class="flex items-center space-x-4 p-4 border border-slate-100 rounded-xl bg-slate-50">
-                    <div class="w-14 h-14 rounded-full bg-purple-200 border border-purple-300 flex items-center justify-center text-purple-700 font-bold shrink-0 text-lg"><i class="fa-solid fa-user-shield"></i></div>
-                    <div>
-                        <h4 class="font-bold text-slate-900">Lindiwe Dube</h4>
-                        <span class="text-xs font-semibold text-purple-600">Team Supervisor</span>
-                    </div>
-                </div>
-
-                <div class="flex items-center space-x-4 p-4 border border-slate-100 rounded-xl bg-slate-50">
-                    <div class="w-14 h-14 rounded-full bg-purple-200 border border-purple-300 flex items-center justify-center text-purple-700 font-bold shrink-0 text-lg"><i class="fa-solid fa-user-check"></i></div>
-                    <div>
-                        <h4 class="font-bold text-slate-900">Sipho Mokoena</h4>
-                        <span class="text-xs font-semibold text-purple-600">Floor Specialist</span>
-                    </div>
-                </div>
-
-                <div class="flex items-center space-x-4 p-4 border border-slate-100 rounded-xl bg-slate-50">
-                    <div class="w-14 h-14 rounded-full bg-purple-200 border border-purple-300 flex items-center justify-center text-purple-700 font-bold shrink-0 text-lg"><i class="fa-solid fa-user-doctor"></i></div>
-                    <div>
-                        <h4 class="font-bold text-slate-900">Zanele Khumalo</h4>
-                        <span class="text-xs font-semibold text-purple-600">Sanitation Expert</span>
-                    </div>
-                </div>
-            </div>
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center"><i class="fa-solid fa-location-dot text-[var(--accent-light)]"></i></div>
+          <div><span class="block text-[10px] uppercase tracking-wider text-white/40">Address</span><span class="text-sm font-medium">123 Cleaning Ave, Johannesburg</span></div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- SECTION 7: INTERACTIVE CONTACT ENTRY GRID -->
-    <section id="contact" class="py-20 bg-slate-50 border-t border-slate-200/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 gap-12">
-            
-            <!-- Context Block Columns -->
-            <div class="lg:col-span-2 space-y-6">
-                <div class="space-y-3">
-                    <span class="text-[--brand-purple] text-sm font-bold tracking-widest uppercase">Get In Touch</span>
-                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Contact Us for a Free Quote</h2>
-                    <p class="text-slate-500 text-sm leading-relaxed">We are here to serve you with professional cleaning services. Reach out to us for bookings, inquiries, or a free consultation.</p>
-                </div>
-
-                <!-- Strategic Core Identifiers -->
-                <div class="space-y-4 pt-2">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-10 h-10 bg-white rounded-lg shadow-sm text-[--brand-purple] border border-slate-200/60 flex items-center justify-center"><i class="fa-solid fa-phone"></i></div>
-                        <div>
-                            <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Phone Number</span>
-                            <span class="text-sm font-semibold text-slate-800">+27 11 000 1234 / +27 82 000 5678</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <div class="w-10 h-10 bg-white rounded-lg shadow-sm text-[--brand-purple] border border-slate-200/60 flex items-center justify-center"><i class="fa-solid fa-location-dot"></i></div>
-                        <div>
-                            <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Address</span>
-                            <span class="text-sm font-semibold text-slate-800">123 Cleaning Ave., Johannesburg</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Form Processing Shell Area Column -->
-            <div class="lg:col-span-3 bg-white border border-slate-200/60 shadow-xl rounded-2xl p-6 sm:p-8">
-                <form action="#" method="POST" class="space-y-4" onsubmit="event.preventDefault(); alert('Quote Request Sent!');">
-                    <div class="grid sm:grid-cols-2 gap-4">
-                        <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-600 uppercase tracking-wide">Full Name</label>
-                            <input type="text" placeholder="Your Name" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-[--brand-purple] focus:bg-white transition" required>
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-600 uppercase tracking-wide">Email Address</label>
-                            <input type="email" placeholder="name@domain.com" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-[--brand-purple] focus:bg-white transition" required>
-                        </div>
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-xs font-bold text-slate-600 uppercase tracking-wide">Service Required</label>
-                        <select class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-[--brand-purple] focus:bg-white transition">
-                            <option>Residential Cleaning</option>
-                            <option>Commercial Cleaning</option>
-                            <option>Deep Cleaning</option>
-                            <option>Other / Custom Inquiry</option>
-                        </select>
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-xs font-bold text-slate-600 uppercase tracking-wide">Message Context</label>
-                        <textarea rows="4" placeholder="Describe your spatial scale and scheduling constraints..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-[--brand-purple] focus:bg-white transition" required></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-[--brand-purple] hover:bg-[--brand-purple-light] text-white font-bold py-3 px-4 rounded-lg shadow-md transition uppercase tracking-wider text-xs">
-                        Request Free Quote
-                    </button>
-                </form>
-            </div>
+    <div class="lg:col-span-3">
+      <form class="ticket bg-[var(--paper)] text-[var(--ink)] rounded-2xl p-6 sm:p-8" style="--edge-bg:var(--ink);" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Work order sent ✓';">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-[10px] font-bold uppercase tracking-wider text-[var(--ink-soft)]">Full name</label>
+            <input type="text" placeholder="Your name" required class="w-full mt-1 px-4 py-2.5 bg-[var(--paper-dim)] border border-[var(--line)] rounded-lg text-sm focus:outline-none focus:border-[var(--purple)]">
+          </div>
+          <div>
+            <label class="text-[10px] font-bold uppercase tracking-wider text-[var(--ink-soft)]">Email</label>
+            <input type="email" placeholder="name@domain.com" required class="w-full mt-1 px-4 py-2.5 bg-[var(--paper-dim)] border border-[var(--line)] rounded-lg text-sm focus:outline-none focus:border-[var(--purple)]">
+          </div>
         </div>
-    </section>
-
-    <!-- SECTION 8: BOTTOM FINAL CONTEXT STRIP CALL-TO-ACTION -->
-    <section class="py-16 bg-gradient-to-tr from-purple-950 to-[--brand-purple] text-white text-center relative overflow-hidden">
-        <div class="max-w-3xl mx-auto px-4 relative z-10 space-y-6">
-            <h2 class="text-3xl sm:text-4xl font-black tracking-tight">Ready for a Cleaner Space?</h2>
-            <p class="text-purple-200 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-                Book your cleaning today and experience the absolute difference. Call us now or request a professional quote online — we are ready to serve you!
-            </p>
-            <div class="flex flex-wrap justify-center gap-4 pt-2">
-                <a href="tel:+27110001234" class="bg-white text-[--brand-purple] font-bold px-8 py-3 rounded-full shadow-lg hover:bg-purple-50 transition text-sm">
-                    <i class="fa-solid fa-phone mr-2"></i> Call Now
-                </a>
-                <a href="#contact" class="bg-purple-800 text-white border border-purple-400 font-bold px-8 py-3 rounded-full hover:bg-purple-700 transition text-sm">
-                    Get a Quote
-                </a>
-            </div>
+        <div class="mt-4">
+          <label class="text-[10px] font-bold uppercase tracking-wider text-[var(--ink-soft)]">Service required</label>
+          <select class="w-full mt-1 px-4 py-2.5 bg-[var(--paper-dim)] border border-[var(--line)] rounded-lg text-sm focus:outline-none focus:border-[var(--purple)]">
+            <option>Residential Cleaning</option>
+            <option>Commercial Cleaning</option>
+            <option>Deep Cleaning</option>
+            <option>Other / custom job</option>
+          </select>
         </div>
-    </section>
-
-    <!-- FOOTER SIGNATURE -->
-    <footer class="bg-slate-900 text-slate-500 text-xs py-8 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center space-x-2">
-                <span class="font-bold text-slate-300 uppercase tracking-wider">Vukazizwe</span>
-                <span>&copy; 2026 All Rights Reserved.</span>
-            </div>
-            <div class="space-x-4">
-                <a href="#" class="hover:text-slate-300">Privacy Policy</a>
-                <a href="#" class="hover:text-slate-300">Terms of Service</a>
-            </div>
+        <div class="mt-4">
+          <label class="text-[10px] font-bold uppercase tracking-wider text-[var(--ink-soft)]">Tell us about the space</label>
+          <textarea rows="4" placeholder="Size, rooms, timing..." required class="w-full mt-1 px-4 py-2.5 bg-[var(--paper-dim)] border border-[var(--line)] rounded-lg text-sm focus:outline-none focus:border-[var(--purple)]"></textarea>
         </div>
-    </footer>
+        <button type="submit" class="w-full mt-5 bg-[var(--ink)] hover:bg-[var(--purple-dark)] text-[var(--paper)] font-bold py-3.5 rounded-lg text-xs uppercase tracking-wider transition">Send work order</button>
+      </form>
+    </div>
+  </div>
+</section>
 
+<!-- FOOTER -->
+<footer class="bg-[var(--ink)] text-white/40 text-xs py-8 border-t border-white/10">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="font-display font-semibold text-white/70 tracking-wide">Vukazizwe Cleaning Group</span>
+      <span>© 2026. All rights reserved.</span>
+    </div>
+    <div class="space-x-4">
+      <a href="#" class="hover:text-white/70">Privacy Policy</a>
+      <a href="#" class="hover:text-white/70">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Loop the hero checklist ticks
+  const items = document.querySelectorAll('#tick-list .tick-item');
+  let i = 1;
+  setInterval(() => {
+    items.forEach(el => el.classList.remove('on'));
+    for (let j = 0; j <= i; j++) items[j % items.length].classList.add('on');
+    i = (i + 1) % items.length;
+    if (i === 0) setTimeout(() => items.forEach(el => el.classList.remove('on')), 900);
+  }, 900);
+</script>
 </body>
 </html>
