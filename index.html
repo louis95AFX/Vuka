@@ -335,14 +335,46 @@
       <span class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--accent-light)]">Open a work order</span>
       <h2 class="font-display font-bold text-4xl leading-tight">Tell us what needs cleaning.</h2>
       <p class="text-white/60 text-sm leading-relaxed">We'll get back to you with a quote within one business day.</p>
+      
       <div class="space-y-4 pt-4">
-        <div class="flex items-center gap-4">
-          <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center"><i class="fa-solid fa-phone text-[var(--accent-light)]"></i></div>
-          <div><span class="block text-[10px] uppercase tracking-wider text-white/40">Phone</span><span class="text-sm font-medium">+27 11 000 1234 · +27 82 000 5678</span></div>
+        <!-- Contacts Dropdown -->
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center mt-1"><i class="fa-solid fa-phone text-[var(--accent-light)]"></i></div>
+          <div class="flex-1">
+            <label for="contact-select" class="block text-[10px] uppercase tracking-wider text-white/40 mb-1">Our Contacts</label>
+            <select id="contact-select" class="bg-white/10 text-white text-sm font-medium rounded-lg block w-full max-w-xs p-2.5 border border-white/10 focus:ring-[var(--accent-light)] focus:border-[var(--accent-light)] outline-none cursor-pointer [&>option]:text-slate-900">
+              <option value="tel:0623304354">Ms Ramorei: 062 330 4354</option>
+              <option value="tel:0683031288">Mr Nozaza: 068 303 1288</option>
+              <option value="tel:0764784665">Mr Dieperink: 076 478 4665</option>
+              <option value="https://wa.me/27683031288">WhatsApp: 068 303 1288</option>
+            </select>
+            <div class="mt-2 flex gap-3 text-xs text-white/60">
+              <a href="https://wa.me/27683031288" target="_blank" class="hover:text-[var(--accent-light)] transition flex items-center gap-1">
+                <i class="fa-brands fa-whatsapp text-emerald-400"></i> Message on WhatsApp
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="flex items-center gap-4">
+    
+        <!-- Emails -->
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center"><i class="fa-solid fa-envelope text-[var(--accent-light)]"></i></div>
+          <div>
+            <span class="block text-[10px] uppercase tracking-wider text-white/40">Email Addresses</span>
+            <a href="mailto:info@vukazizwecleaninggroup.co.za" class="block text-sm font-medium hover:text-[var(--accent-light)] transition">info@vukazizwecleaninggroup.co.za</a>
+            <a href="mailto:bnozaza@vukazizwecleaninggroup.co.za" class="block text-sm font-medium hover:text-[var(--accent-light)] transition">bnozaza@vukazizwecleaninggroup.co.za</a>
+          </div>
+        </div>
+    
+        <!-- Address -->
+        <div class="flex items-start gap-4">
           <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center"><i class="fa-solid fa-location-dot text-[var(--accent-light)]"></i></div>
-          <div><span class="block text-[10px] uppercase tracking-wider text-white/40">Address</span><span class="text-sm font-medium">123 Cleaning Ave, Johannesburg</span></div>
+          <div>
+            <span class="block text-[10px] uppercase tracking-wider text-white/40">Address</span>
+            <span class="text-sm font-medium block whitespace-pre-line">77 Lotnonis drive
+            Block 77/060
+            Riverside view 2189</span>
+          </div>
         </div>
       </div>
     </div>
