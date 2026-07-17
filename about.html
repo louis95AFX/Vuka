@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Vukazizwe Cleaning Group</title>
+    <style>
+        /* Base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #334155;
+            background-color: #f8fafc;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        
+        /* Header Section */
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+        .logo-placeholder {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.025em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .logo-accent {
+            color: #0284c7;
+        }
+        .tagline {
+            font-size: 16px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 28px;
+            color: #0f172a;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 20px;
+            color: #0369a1;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            border-left: 4px solid #0284c7;
+            padding-left: 12px;
+        }
+        p {
+            margin-bottom: 16px;
+            font-size: 15px;
+            color: #475569;
+        }
+
+        /* Experience Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14.5px;
+        }
+        th {
+            background-color: #f1f5f9;
+            color: #1e293b;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 2px solid #cbd5e1;
+        }
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        tr:hover {
+            background-color: #f8fafc;
+        }
+        .site-name {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        /* Services List */
+        .services-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        .services-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+        .services-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #0284c7;
+            font-weight: bold;
+        }
+        .services-list strong {
+            color: #0f172a;
+        }
+
+        /* Highlight Promise Box */
+        .promise-box {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            border: 1px solid #7dd3fc;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            margin-top: 35px;
+        }
+        .promise-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #0369a1;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .promise-quote {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0369a1;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="logo-placeholder">Vukazizwe <span class="logo-accent">Cleaning Group</span></div>
+        <div class="tagline">We Clean. You Relax.</div>
+    </div>
+
+    <h1>Our Story</h1>
+    
+    <p>Vukazizwe Cleaning Group was founded by Bongisizwe Nozaza, driven by a passion for creating clean, healthy, and welcoming environments while delivering professional cleaning services people can trust.</p>
+    
+    <p>Before establishing Vukazizwe, Bongisizwe invested in professional training and earned a <strong>Certificate of Competence in Hygiene and Cleaning (Level 01)</strong> through Services SETA, providing a solid foundation in professional cleaning practices and hygiene standards.</p>
+
+    <h2>Foundational Expertise & Experience</h2>
+    <p>To further develop his expertise, Bongisizwe spent three years with <strong>Tsebo Cleaning and Hygiene Solutions</strong>, gaining valuable experience across three different client sites:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 30%;">Client Site</th>
+                <th style="width: 70%;">Experience &amp; Standards Delivered</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="site-name">EY (Ernst &amp; Young)</td>
+                <td>Maintaining high-level corporate cleaning standards at EY offices, ensuring prestige work spaces remained immaculate.</td>
+            </tr>
+            <tr>
+                <td class="site-name">Private Hospital</td>
+                <td>Delivering meticulous cleaning services in a private hospital setting, where clinical disinfection and infection prevention protocols were strictly essential.</td>
+            </tr>
+            <tr>
+                <td class="site-name">Gautrain</td>
+                <td>Providing rapid, robust hygiene and cleaning solutions, ensuring world-class cleanliness and safety inside high-traffic public transport environments.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>These experiences equipped him with the unique set of skills, strict discipline, and fine attention to detail required to reliably serve clients across residential, commercial, healthcare, and public facilities.</p>
+
+    <h2>Our Cleaning Services</h2>
+    <p>Today, Vukazizwe Cleaning Group proudly offers a comprehensive range of professional services, delivered with unwavering professionalism, integrity, and a commitment to exceeding expectations:</p>
+    
+    <ul class="services-list">
+        <li><strong>Residential Cleaning:</strong> Thorough regular upkeep to keep your home comfortable, safe, and organized.</li>
+        <li><strong>Deep Cleaning &amp; Spring Cleaning:</strong> Meticulous, top-to-bottom sanitization and intensive deep-cleaning options.</li>
+        <li><strong>Oven Cleaning:</strong> Deep restoration to lift burnt-on grease, grease, and carbon buildup.</li>
+        <li><strong>Laundry Services:</strong> High-care cleaning and folding solutions for your domestic and commercial linens.</li>
+        <li><strong>After-Party &amp; Event Cleaning:</strong> Quick and dependable post-event cleanup so you can host stress-free.</li>
+    </ul>
+
+    <div class="promise-box">
+        <div class="promise-title">Our Promise is Simple</div>
+        <div class="promise-quote">"We Clean. You Relax."</div>
+    </div>
+</div>
+
+</body>
+</html>
